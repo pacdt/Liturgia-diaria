@@ -50,6 +50,7 @@ async function cloneSiteAndRemoveTags() {
             $('.footer').remove();
             $('.copyright').remove();
             $('button').remove();
+            $('title').remove();
             $('<link rel="stylesheet" href="style.css">').appendTo('head');
 
             // Salva o conteúdo HTML modificado em um novo arquivo
