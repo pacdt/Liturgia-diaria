@@ -10,17 +10,25 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      # Este passo usa a ação 'checkout' para fazer checkout do seu repositório
 
     - name: Setup Node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
       with:
         node-version: '18' # Ou a versão do Node.js que seu projeto requer
 
     - name: Install dependencies
       run: npm install
+      # Este passo executa 'npm install' para instalar as dependências do projeto
 
     - name: Run script
       run: npm run start
+      # Este passo executa 'npm run start' para rodar seu script Node.js
 
-    - name: Deploy
-      # Adicione passos específicos para o deploy aqui, dependendo do seu alvo de deploy
+    # Adicione aqui os passos específicos para o deploy, dependendo do serviço de hospedagem que você está utilizando.
+    # Exemplo para deploy no GitHub Pages:
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./ # Atualize este caminho para o diretório que contém os arquivos que você quer publicar
