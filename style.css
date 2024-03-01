@@ -3,3 +3,7 @@ body{
     /* background-color: #724646; */
     font-family: "Libre Baskerville", sans-serif;
 }
+.copyright{
+    margin-top: 20px;
+    text-align: center;
+}
