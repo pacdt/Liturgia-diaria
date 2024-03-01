@@ -2,7 +2,7 @@ name: Deploy Daily
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Executa todos os dias à meia-noite UTC
+    - cron: '30 3 * * *' # Executa às 03:30 UTC, que corresponde às 00:30 em Brasília (UTC-3)
 
 jobs:
   build-and-deploy:
