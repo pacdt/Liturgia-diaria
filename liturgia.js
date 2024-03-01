@@ -28,7 +28,7 @@ async function cloneSiteAndRemoveTags() {
     await page.goto(url, { waitUntil: 'networkidle2' });
 
     // Espera 2 segundos para garantir que a página esteja completamente carregada
-    await new Promise(resolve => setTimeout(resolve, 10000));
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
     // Extrai o conteúdo HTML da página
     const html = await page.content();
@@ -47,11 +47,20 @@ async function cloneSiteAndRemoveTags() {
             $('header').remove();
             $('.sidebar').remove();
             $('.share').remove();
-            $('.footer').remove();
+            $('footer').remove();
             $('.copyright').remove();
             $('button').remove();
             $('title').remove();
+            $('noscript').remove();
+            $('script').remove();
+            $('style').remove();
+            $('meta').remove();
+            $('link').remove();
+            $('next-route-announcer').remove();
+
+
             $('<link rel="stylesheet" href="style.css">').appendTo('head');
+            $('<title>Liturgia Diária</title>').appendTo('head');
 
             // Salva o conteúdo HTML modificado em um novo arquivo
             fs.writeFile('index.html', $.html(), (err) => {
