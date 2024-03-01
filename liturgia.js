@@ -48,7 +48,7 @@ async function cloneSiteAndRemoveTags() {
             $('.sidebar').remove();
             $('.share').remove();
             $('footer').remove();
-            $('.copyright').remove();
+            //$('.copyright').remove();
             $('button').remove();
             $('title').remove();
             $('noscript').remove();
