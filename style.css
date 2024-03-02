@@ -6,4 +6,6 @@ body{
 .copyright{
     margin-top: 20px;
     text-align: center;
+    font-size: 10px;
+    color: #aaa8a8;
 }
