@@ -1,8 +1,8 @@
-name: Deploy Every 4 Hours
+name: Deploy Every 2 Hours
 
 on:
   schedule:
-    - cron: '0 */2 * * *' # Executa a cada 4 horas, no início da hora (0 minutos)
+    - cron: '*/5 * * * *' 
 
 jobs:
   build-and-deploy:
