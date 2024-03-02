@@ -28,7 +28,7 @@ async function cloneSiteAndRemoveTags() {
     await page.goto(url, { waitUntil: 'networkidle2' });
 
     // Espera 2 segundos para garantir que a página esteja completamente carregada
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise(resolve => setTimeout(resolve, 10000));
 
     // Extrai o conteúdo HTML da página
     const html = await page.content();
@@ -48,7 +48,6 @@ async function cloneSiteAndRemoveTags() {
             $('.sidebar').remove();
             $('.share').remove();
             $('footer').remove();
-            //$('.copyright').remove();
             $('button').remove();
             $('title').remove();
             $('noscript').remove();
