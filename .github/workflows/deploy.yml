@@ -1,32 +1,57 @@
+# name: Deploy Every 2 Hours
+
+# on:
+#   schedule:
+#     - cron: '*/5 * * * *'
+
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - uses: actions/checkout@v4
+#       # Este passo usa a ação 'checkout' para fazer checkout do seu repositório
+
+#     - name: Setup Node.js
+#       uses: actions/setup-node@v4
+#       with:
+#         node-version: '20' # Ou a versão do Node.js que seu projeto requer
+
+#     - name: Install dependencies
+#       run: npm install
+
+#     - name: Run script
+#       run: npm run start
+
+#     - name: Deploy to GitHub Pages
+#       uses: peaceiris/actions-gh-pages@v3
+#       with:
+#         github_token: ${{ secrets.Liturgia }}
+#         publish_dir: ./
+
 name: Deploy Every 2 Hours
 
 on:
   schedule:
-    - cron: '*/5 * * * *' 
+    - cron: "*/5 * * * *"
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-      # Este passo usa a ação 'checkout' para fazer checkout do seu repositório
+      - uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20' # Ou a versão do Node.js que seu projeto requer
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
+      - name: Install dependencies
+        run: npm install
 
-    - name: Install dependencies
-      run: npm install
+      - name: Run script
+        run: npm run start
 
-    - name: Run script
-      run: npm run start
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.Liturgia }}
-        publish_dir: ./
-
+      - name: Commit and push changes
+        run: node script.js
