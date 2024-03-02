@@ -9,13 +9,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       # Este passo usa a ação 'checkout' para fazer checkout do seu repositório
 
     - name: Setup Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
-        node-version: '18' # Ou a versão do Node.js que seu projeto requer
+        node-version: '20' # Ou a versão do Node.js que seu projeto requer
 
     - name: Install dependencies
       run: npm install
