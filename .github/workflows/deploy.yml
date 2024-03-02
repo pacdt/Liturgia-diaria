@@ -55,6 +55,6 @@ jobs:
 
       - name: Commit and push changes
         run: node script.js
-        
+
       - name: Push changes
-      run: git push
+        run: git push
