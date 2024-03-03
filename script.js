@@ -7,7 +7,6 @@ exec('git add .', (err, stdout, stderr) => {
         console.error(err);
         return;
     }
-
     console.log('Arquivos adicionados ao staging area');
 
     exec('git commit -m "Atualização automática"', (err, stdout, stderr) => {
@@ -15,7 +14,6 @@ exec('git add .', (err, stdout, stderr) => {
             console.error(err);
             return;
         }
-
         console.log('Commit realizado com sucesso!');
     });
 });
