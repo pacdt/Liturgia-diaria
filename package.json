@@ -13,7 +13,6 @@
   "dependencies": {
     "axios": "^1.6.7",
     "cheerio": "^1.0.0-rc.12",
-    "github-actions-cli": "^0.0.11",
     "puppeteer": "^22.3.0"
   }
 }
