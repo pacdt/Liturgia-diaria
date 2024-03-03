@@ -29,7 +29,7 @@
 #         github_token: ${{ secrets.Liturgia }}
 #         publish_dir: ./
 
-name: Deploy Every 2 Hours
+name: Deploy Every 5 minutes
 
 on:
   schedule:
