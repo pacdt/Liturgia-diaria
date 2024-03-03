@@ -29,11 +29,11 @@
 #         github_token: ${{ secrets.Liturgia }}
 #         publish_dir: ./
 
-name: Deploy Every 1 minutes
+name: Deploy Every 5 minutes
 
 on:
   schedule:
-    - cron: "*/1 * * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   build-and-deploy:
@@ -56,5 +56,6 @@ jobs:
       - name: Commit and push changes
         run: node script.js
 
-      - name: Push changes
-        run: git push
+      - name: Push changes (requires GITHUB_TOKEN secret)
+        run: git push origin HEAD:${{ github.sha }} --force-with-lease --token ${{ secrets.GITHUB_TOKEN }}
+
