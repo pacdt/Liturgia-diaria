@@ -1,5 +1,3 @@
-// Este script faz um commit no repositório
-
 const exec = require('child_process').exec;
 
 exec('git add .', (err, stdout, stderr) => {
@@ -15,5 +13,13 @@ exec('git add .', (err, stdout, stderr) => {
             return;
         }
         console.log('Commit realizado com sucesso!');
+
+        exec('git push origin main', (err, stdout, stderr) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log('Push realizado com sucesso!');
+        });
     });
 });
