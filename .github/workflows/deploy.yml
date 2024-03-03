@@ -53,6 +53,12 @@ jobs:
       - name: Run script
         run: npm run start
 
+      - name: Add Email
+        run: git config --global user.email mateus15do2@gmail.com
+
+      - name: Add Name
+        run: git config --global user.name Mateus Santos
+
       - name: Commit and push changes
         run: node script.js
 
