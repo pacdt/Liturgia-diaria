@@ -29,11 +29,11 @@
 #         github_token: ${{ secrets.Liturgia }}
 #         publish_dir: ./
 
-name: Deploy Every 5 minutes
+name: Deploy Every 1 minutes
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/1 * * * *"
 
 jobs:
   build-and-deploy:
