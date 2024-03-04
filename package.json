@@ -5,7 +5,8 @@
   "main": "liturgia.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node liturgia.js"
+    "start": "node liturgia.js",
+    "build": "node liturgia.js && node script.js"
   },
   "keywords": [],
   "author": "",
