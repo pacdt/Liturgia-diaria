@@ -65,36 +65,36 @@
       #- name: Push changes (requires GITHUB_TOKEN secret)
        # run: git push origin HEAD:${{ github.sha }} --force ${{ secrets.GITHUB_TOKEN }}
 
-       name: Node.js Build and Push
+      #  name: Node.js Build and Push
 
-       on:
-         schedule:
-           - cron: '*/30 * * * *' # Executa a cada 5 minutos
+      # #  on:
+      #   #  schedule:
+      #     #  - cron: '*/30 * * * *' # Executa a cada 5 minutos
        
-       jobs:
-         build:
-           runs-on: ubuntu-latest
+      #  jobs:
+      #    build:
+      #      runs-on: ubuntu-latest
        
-           steps:
-           - name: Checkout repository
-             uses: actions/checkout@v4
+      #      steps:
+      #      - name: Checkout repository
+      #        uses: actions/checkout@v4
        
-           - name: Setup Node.js
-             uses: actions/setup-node@v4
-             with:
-               node-version: '20'
+      #      - name: Setup Node.js
+      #        uses: actions/setup-node@v4
+      #        with:
+      #          node-version: '20'
        
-           - name: Install dependencies
-             run: npm install
+      #      - name: Install dependencies
+      #        run: npm install
        
-           - name: Build
-             run: npm run start
+      #      - name: Build
+      #        run: npm run start
        
-           - name: Commit and Push Changes
-             run: |
-               git config --global user.email "mateus15do2@gmail.com"
-               git config --global user.name "Mateus Santos"
-               git add .
-               git commit -m "Autualização Automática"
-               git status
-               git push origin HEAD:main
+      #      - name: Commit and Push Changes
+      #        run: |
+      #          git config --global user.email "mateus15do2@gmail.com"
+      #          git config --global user.name "Mateus Santos"
+      #          git add .
+      #          git commit -m "Autualização Automática"
+      #          git status
+      #          git push origin HEAD:main
