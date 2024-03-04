@@ -29,74 +29,39 @@
 #         github_token: ${{ secrets.Liturgia }}
 #         publish_dir: ./
 
-#name: Deploy Every 5 minutes
+name: Deploy Every 5 minutes
 
-#on:
- # schedule:
-  #  - cron: "*/5 * * * *"
+on:
+ schedule:
+   - cron: "*/5 * * * *"
 
-#jobs:
- # build-and-deploy:
-  #  runs-on: ubuntu-latest
+jobs:
+ build-and-deploy:
+   runs-on: ubuntu-latest
 
-   # steps:
-    #  - uses: actions/checkout@v4
+   steps:
+     - uses: actions/checkout@v4
 
-     # - name: Setup Node.js
-      #  uses: actions/setup-node@v4
-       # with:
-        #  node-version: "20"
+     - name: Setup Node.js
+       uses: actions/setup-node@v4
+       with:
+         node-version: "20"
 
-     # - name: Install dependencies
-      #  run: npm install
+     - name: Install dependencies
+       run: npm install
 
-      #- name: Run script
-       # run: npm run start
+     - name: Run script
+       run: npm run start
 
-      #- name: Add Email
-       # run: git config --global user.email mateus15do2@gmail.com
+     - name: Add Email
+       run: git config --global user.email mateus15do2@gmail.com
 
-      #- name: Add Name
-       # run: git config --global user.name Mateus Santos
+     - name: Add Name
+       run: git config --global user.name Mateus Santos
 
-      #- name: Commit and push changes
-      #  run: node script.js
+     - name: Commit and push changes
+       run: node script.js
 
-      #- name: Push changes (requires GITHUB_TOKEN secret)
-       # run: git push origin HEAD:${{ github.sha }} --force ${{ secrets.GITHUB_TOKEN }}
-
-       name: Auto Deploy Every 5 minutes
-
-       on:
-         schedule:
-           - cron: "*/5 * * * *"
-       
-       jobs:
-         deploy:
-           runs-on: ubuntu-latest
-       
-           steps:
-             - name: Checkout Repository
-               uses: actions/checkout@v4
-       
-             - name: Setup Node.js
-               uses: actions/setup-node@v4
-               with:
-                 node-version: "20"
-       
-             - name: Install Dependencies
-               run: npm install
-       
-             - name: Run Liturgia.js Script
-               run: npm run start
-       
-             - name: Add Generated Files to Repository
-               run: |
-                 git add -A
-                 git status
-       
-             - name: Commit Changes
-               run: |
-                 git diff-index --quiet HEAD || git commit -m "Auto-commit generated files"
-                 git push
+     - name: Push changes (requires GITHUB_TOKEN secret)
+       run: git push origin HEAD:${{ github.sha }} --force ${{ secrets.GITHUB_TOKEN }}
        
