@@ -14,7 +14,7 @@ exec('git add .', (err, stdout, stderr) => {
         }
         console.log('Commit realizado com sucesso!');
 
-        exec('git push origin main', (err, stdout, stderr) => {
+        exec(`git push origin main --force ${process.env.GITHUB_TOKEN}`, (err, stdout, stderr) => {
             if (err) {
                 console.error(err);
                 return;
