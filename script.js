@@ -19,6 +19,6 @@ exec('git add .', (err, stdout, stderr) => {
             console.error(err);
             return;
         }
-        console.log('Status');
+        console.log('git status');
     });
 });
