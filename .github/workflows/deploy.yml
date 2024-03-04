@@ -95,7 +95,7 @@
                git config --global user.email "mateus15do2@gmail.com"
                git config --global user.name "Mateus Santos"
                git add .
-               git commit -m "Autualização Automática]"
+               git commit -m "Autualização Automática"
                git status
                git push https://${{ secrets.GH_TOKEN }}@github.com/pacdt/Liturgia-diaria.git HEAD:main
        
