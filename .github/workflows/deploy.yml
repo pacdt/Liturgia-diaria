@@ -97,5 +97,5 @@
                git add .
                git commit -m "Autualização Automática]"
                git status
-               git push https://${{ secrets.GITHUB_TOKEN }}@github.com/pacdt/Liturgia-diaria.git HEAD:main
+               git push https://${{ secrets.GH_TOKEN }}@github.com/pacdt/Liturgia-diaria.git HEAD:main
        
