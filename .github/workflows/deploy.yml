@@ -65,44 +65,36 @@
       #- name: Push changes (requires GITHUB_TOKEN secret)
        # run: git push origin HEAD:${{ github.sha }} --force ${{ secrets.GITHUB_TOKEN }}
 
-       name: Auto Deploy Every 5 minutes
+       name: Node.js Build and Push
 
        on:
          schedule:
-           - cron: "*/5 * * * *"
+           - cron: '*/5 * * * *' # Executa a cada 5 minutos
        
        jobs:
-         deploy:
+         build:
            runs-on: ubuntu-latest
        
            steps:
-             - name: Checkout Repository
-               uses: actions/checkout@v4
+           - name: Checkout repository
+             uses: actions/checkout@v4
        
-             - name: Setup Node.js
-               uses: actions/setup-node@v4
-               with:
-                 node-version: "20"
+           - name: Setup Node.js
+             uses: actions/setup-node@v4
+             with:
+               node-version: '20'
        
-             - name: Install Dependencies
-               run: npm install
+           - name: Install dependencies
+             run: npm install
        
-             - name: Run Liturgia.js Script
-               run: npm run start
-
-             - name: Add Email
-               run: git config --global user.email mateus15do2@gmail.com
-
-             - name: Add Name
-               run: git config --global user.name Mateus Santos
+           - name: Build
+             run: npm run start
        
-             - name: Add Generated Files to Repository
-               run: |
-                 git add -A
-                 git status
-       
-             - name: Commit Changes
-               run: |
-                 git diff-index --quiet HEAD || git commit -m "Auto-commit generated files"
-                 git push
+           - name: Commit and Push Changes
+             run: |
+               git config --global user.email "mateus15do2@gmail.com"
+               git config --global user.name "Mateus Santos"
+               git add .
+               git commit -m "Autualização Automática]"
+               git push https://${{ secrets.GITHUB_TOKEN }}@github.com/pacdt/Liturgia-diaria.git HEAD:main
        
