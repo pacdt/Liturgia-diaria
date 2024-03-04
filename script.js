@@ -13,13 +13,12 @@ exec('git add .', (err, stdout, stderr) => {
             return;
         }
         console.log('Commit realizado com sucesso!');
-
-        // exec(`git push`, (err, stdout, stderr) => {
-        //     if (err) {
-        //         console.error(err);
-        //         return;
-        //     }
-        //     console.log('Push realizado com sucesso!');
-        // });
+    });
+    exec('git status', (err, stdout, stderr) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log('Status');
     });
 });
