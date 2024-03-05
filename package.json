@@ -1,11 +1,12 @@
 {
   "name": "liturgia-diaria",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "liturgia.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node liturgia.js"
+    "start": "node liturgia.js",
+    "build": "node liturgia.js && node script.js"
   },
   "keywords": [],
   "author": "",
