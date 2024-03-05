@@ -2,7 +2,7 @@ name: Deploy Every 5 Minutes
 
 on:
   schedule:
-    - cron: '0 */6 * * *' #'*/5 * * * *'
+    - cron: '0 */2 * * *' #'*/5 * * * *'
 
 jobs:
   build-and-deploy:
