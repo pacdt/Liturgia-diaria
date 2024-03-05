@@ -98,3 +98,31 @@
       #          git commit -m "Autualização Automática"
       #          git status
       #          git push origin HEAD:main
+
+      on:
+          schedule:
+            - cron: '*/5 * * * *' # Executa a cada 5 minutos
+            
+        jobs:
+          build:
+            runs-on: ubuntu-latest
+
+            steps:
+              - uses: actions/checkout@v2
+
+              - name: Executar script Node.js
+                uses: node/run-action@v4
+                with:
+                  node-version: '20'
+                  script: 'npm run build'
+
+              - name: Gerar index.html
+                uses: github/super-gh-pages@v3
+                with:
+                  path: 'dist'
+
+              - name: Deploy para Github Pages
+                uses: github/deploy-pages@v3
+                with:
+                  source: './dist'
+                  branch: 'gh-pages'
