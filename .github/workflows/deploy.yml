@@ -98,11 +98,12 @@
       #          git commit -m "Autualização Automática"
       #          git status
       #          git push origin HEAD:main
-
+      
+      name: Deploy Every 5 minutes
       on:
           schedule:
             - cron: '*/5 * * * *' # Executa a cada 5 minutos
-            
+
         jobs:
           build:
             runs-on: ubuntu-latest
