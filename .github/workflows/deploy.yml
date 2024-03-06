@@ -1,8 +1,8 @@
-name: Deploy Every 5 Minutes
+name: Deploy Every Day
 
 on:
   schedule:
-    - cron: '0 */2 * * *' #'*/5 * * * *'
+    - cron: '5,15,30 0 * * *'
 
 jobs:
   build-and-deploy:
