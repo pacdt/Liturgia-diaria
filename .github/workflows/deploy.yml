@@ -2,7 +2,7 @@ name: Deploy Every Day
 
 on:
   schedule:
-    - cron: '0 21 * * *'
+    - cron: '5 00 * * *'
 
 jobs:
   build-and-deploy:
