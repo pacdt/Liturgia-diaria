@@ -1,58 +1,98 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 
-function deleteClonedFile(callback) {
-    fs.unlink('site_clonado.html', (err) => {
-        if (err && err.code !== 'ENOENT') {
-            console.error('Erro ao excluir arquivo HTML clonado:', err);
-        } else {
-            console.log('Arquivo HTML clonado excluído com sucesso.');
+const CONFIG = {
+    url: 'https://liturgiadiaria.edicoescnbb.com.br/',
+    files: {
+        temp: 'site_clonado.html',
+        output: 'index.html'
+    },
+    waitTime: 10000,
+    style: `
+        @import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap");
+        body {
+            font-family: "Libre Baskerville", sans-serif;
         }
-        callback();
-    });
-}
-async function cloneSiteAndRemoveTags() {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    const url = 'https://liturgiadiaria.edicoescnbb.com.br/';
-    await page.goto(url, { waitUntil: 'networkidle2' });
-    await new Promise(resolve => setTimeout(resolve, 10000));
-    const html = await page.content();
-
-    fs.writeFile('site_clonado.html', html, (err) => {
-        if (err) {
-            console.error('Erro ao salvar arquivo HTML clonado:', err);
-        } else {
-            console.log('Site clonado com sucesso. Conteúdo salvo em "site_clonado.html"');
-            const $ = cheerio.load(html);
-            $('header').remove();
-            $('.sidebar').remove();
-            $('.share').remove();
-            $('footer').remove();
-            $('button').remove();
-            $('title').remove();
-            $('noscript').remove();
-            $('script').remove();
-            $('style').remove();
-            $('meta').remove();
-            $('link').remove();
-            $('next-route-announcer').remove();
-            $('<title>Liturgia Diária</title>').appendTo('head');
-            $('<style>@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"); body{font-family: "Libre Baskerville", sans-serif;}.copyright{margin-top: 20px; text-align: center; font-size: 10px; color: #aaa8a8;}</style>').appendTo('head');
-
-            fs.writeFile('index.html', $.html(), (err) => {
-                if (err) {
-                    console.error('Erro ao salvar arquivo HTML:', err);
-                } else {
-                    console.log('Tags removidas e novo arquivo HTML gerado com sucesso em "index.html"');
-                }
-            });
+        .copyright {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 10px;
+            color: #aaa8a8;
         }
-    });
-    await browser.close();
+    `
+};
+
+const elementsToRemove = [
+    'header', '.sidebar', '.share', 'footer', 'button',
+    'title', 'noscript', 'script', 'style', 'meta',
+    'link', 'next-route-announcer'
+];
+
+async function deleteTempFile() {
+    try {
+        await fs.unlink(CONFIG.files.temp);
+        console.log('Arquivo temporário excluído com sucesso.');
+    } catch (error) {
+        if (error.code !== 'ENOENT') {
+            console.error('Erro ao excluir arquivo temporário:', error);
+        }
+    }
 }
-deleteClonedFile(() => {
-    cloneSiteAndRemoveTags();
-});
+
+async function extractPageContent() {
+    const browser = await puppeteer.launch({
+        headless: "new"
+    });
+    try {
+        const page = await browser.newPage();
+        await page.goto(CONFIG.url, { waitUntil: 'networkidle2' });
+        await new Promise(resolve => setTimeout(resolve, CONFIG.waitTime));
+        return await page.content();
+    } finally {
+        await browser.close();
+    }
+}
+
+function processHTML(html) {
+    const $ = cheerio.load(html);
+    
+    // Remove elementos desnecessários
+    elementsToRemove.forEach(selector => $(selector).remove());
+    
+    // Adiciona novos elementos
+    $('head').append('<title>Liturgia Diária</title>');
+    $('head').append(`<style>${CONFIG.style}</style>`);
+    
+    return $.html();
+}
+
+async function saveFile(content, filepath) {
+    try {
+        await fs.writeFile(filepath, content);
+        console.log(`Arquivo salvo com sucesso em "${filepath}"`);
+    } catch (error) {
+        console.error(`Erro ao salvar arquivo em "${filepath}":`, error);
+        throw error;
+    }
+}
+
+async function main() {
+    try {
+        await deleteTempFile();
+        
+        const html = await extractPageContent();
+        await saveFile(html, CONFIG.files.temp);
+        
+        const processedHTML = processHTML(html);
+        await saveFile(processedHTML, CONFIG.files.output);
+        
+        console.log('Processo concluído com sucesso!');
+    } catch (error) {
+        console.error('Erro durante a execução:', error);
+        process.exit(1);
+    }
+}
+
+main();
 
