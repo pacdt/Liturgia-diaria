@@ -42,7 +42,8 @@ async function deleteTempFile() {
 
 async function extractPageContent() {
     const browser = await puppeteer.launch({
-        headless: "new"
+        headless: "new",
+        args: ['--no-sandbox', '--disable-setuid-sandbox'] // Corrige o problema do GitHub Actions
     });
     try {
         const page = await browser.newPage();
@@ -95,4 +96,3 @@ async function main() {
 }
 
 main();
-
